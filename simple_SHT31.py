@@ -14,7 +14,6 @@
 # Modules
 import smbus
 import time
-import numpy as np
 
 bus = smbus.SMBus(1)
 
@@ -37,9 +36,11 @@ t_data = data[0] << 8 | data[1]
 # Devide data into counts Humidity
 h_data = data[3] << 8 | data[4]
 
+
 # Convert counts to Temperature/Humidity
-Humidity = 100.0*np.float(h_data)/65535.0
-Temperature = -45.0 + 175.0*np.float(t_data)/65535.0
+Humidity = round(100.0 * float(h_data) / 65535.0, 2)
+Temperature = round(-45.0 + 175.0 * float(t_data) / 65535.0, 2)
+#Numpy is no longer needed and is deprecated
 
 # Print Temperature and Humdity
 print("Temp: %0.2f C  H: %0.2f % ") % (Temperature,Humidity)
